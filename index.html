@@ -13,20 +13,16 @@
 
   <!-- Egne overstyringer -->
   <style>
-    /* Fullskjerm Airbnb-gradient + blur */
+    /* 1) Fullskjerm Airbnb-gradient + blur */
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: none;
-      position: relative;
+      margin: 0; padding: 0;
+      height: 100%; overflow: hidden;
+      background: none; position: relative;
       font-family: sans-serif;
     }
     body::before {
       content: "";
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: linear-gradient(135deg, #FF5A5F, #FF385D);
       filter: blur(10px);
       transform: scale(1.05);
@@ -34,15 +30,13 @@
     }
     body::after {
       content: "";
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.15;
-      pointer-events: none;
+      opacity: 0.15; pointer-events: none;
       z-index: 1;
     }
 
-    /* Plassering av chat-container */
+    /* 2) Plassering av chat-container */
     #n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -50,8 +44,6 @@
       transform: translate(-50%, -50%) !important;
       width: 400px !important;
       height: 600px !important;
-      border-radius: 1rem !important;
-      overflow: hidden !important;
       z-index: 2;
       background: none;
     }
@@ -59,21 +51,31 @@
       display: none !important;
     }
 
-    /* Kraftigere skygge på selve vinduet */
+    /* 3) Chat-vinduet med frosteffekt, avrundinger og skygge */
     #n8n-chat .chat-window {
       position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background: #ffffff !important;
-      border-radius: 1rem !important;
+      top: 0 !important; left: 0 !important;
+      width: 100% !important; height: 100% !important;
+      background: rgba(255,255,255,0.8) !important;
+      backdrop-filter: blur(4px) !important;
+      /* Jevnere avrunding: kun øvre hjørner her */
+      border-top-left-radius: 1rem !important;
+      border-top-right-radius: 1rem !important;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
-      z-index: 2;
       overflow: hidden !important;
+      z-index: 2;
     }
 
-    /* Header med gradient + helt hvit tekst */
+    /* 4) Footer avrundet for bunn */
+    #n8n-chat .chat-footer {
+      background: #ffffff !important;
+      border-bottom-left-radius: 1rem !important;
+      border-bottom-right-radius: 1rem !important;
+    }
+
+    /* 5) Header med gradient og helt hvit tekst */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: #ffffff !important;
@@ -82,18 +84,40 @@
       font-weight: bold !important;
     }
 
-    /* Body og footer hvite */
-    #n8n-chat .chat-body,
-    #n8n-chat .chat-footer {
+    /* 6) Body hvit (og scrollbar‐styling) */
+    #n8n-chat .chat-body {
       background: #ffffff !important;
     }
+    #n8n-chat .chat-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    #n8n-chat .chat-body::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.1);
+      border-radius: 3px;
+    }
 
-    /* Input-felt */
+    /* 7) Mer luft rundt meldinger */
+    #n8n-chat .chat-message {
+      padding: 1rem !important;
+      margin-bottom: 0.75rem !important;
+    }
+
+    /* 8) Input-felt */
     #n8n-chat .chat-input {
       background: rgba(255,255,255,0.8) !important;
     }
+    /* Fokus-stil */
+    #n8n-chat .chat-input:focus {
+      outline: 2px solid var(--chat--message--user--background) !important;
+      outline-offset: 2px !important;
+    }
+    /* Placeholder‐tekst mer kontrast */
+    #n8n-chat .chat-input::placeholder {
+      color: rgba(0,0,0,0.4) !important;
+      font-style: italic !important;
+    }
 
-    /* Bot-/bruker-farger */
+    /* 9) Bot-/bruker-farger */
     :root {
       --chat--message--bot--background: rgba(247,247,247,0.9);
       --chat--message--bot--color: #101330;
@@ -124,7 +148,10 @@
           subtitle: '',
           inputPlaceholder: 'Skriv ditt spørsmål…',
         }
-      }
+      },
+      // 10) Lette animasjoner ved åpning/lukking
+      enterAnimation: 'scale-in',
+      exitAnimation: 'scale-out',
     });
   </script>
 </body>
