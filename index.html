@@ -2,144 +2,20 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chat med oss</title>
-  <style>
-    /* Bakgrunn: AirBnB-stil */
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Segoe UI', sans-serif;
-      position: relative;
-      overflow: hidden;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spør AI-Verten</title>
 
-    /* Korn-effekt */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-image: url("https://grainy-gradients.vercel.app/noise.svg"); /* gratis korntekstur */
-      opacity: 0.2;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Chatboksen */
-    .chat-container {
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.95);
-      width: 400px;
-      height: 600px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .chat-header {
-      background-color: #ff5a5f;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    .chat-log {
-      flex: 1;
-      padding: 1rem;
-      overflow-y: auto;
-      font-size: 1rem;
-    }
-
-    .chat-input {
-      display: flex;
-      border-top: 1px solid #ddd;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 0;
-    }
-
-    button {
-      background-color: #ff5a5f;
-      color: white;
-      border: none;
-      padding: 0 1rem;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #e0484c;
-    }
-
-    .user-msg {
-      font-weight: bold;
-      margin-bottom: 0.3rem;
-    }
-
-    .bot-msg {
-      margin-bottom: 1rem;
-    }
-  </style>
+  <!-- N8N chat widget styling -->
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-header">Spør AI-Verten</div>
-    <div class="chat-log" id="chatlog"></div>
-    <div class="chat-input">
-      <input type="text" id="msg" placeholder="Skriv ditt spørsmål..." />
-      <button onclick="sendMsg()">Send</button>
-    </div>
-  </div>
+  <!-- N8N chat script -->
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-  <script>
-    async function sendMsg() {
-      const input = document.getElementById("msg");
-      const message = input.value.trim();
-      if (!message) return;
-
-      const log = document.getElementById("chatlog");
-      log.innerHTML += `<div class="user-msg">Du: ${message}</div>`;
-
-      input.value = "";
-
-      try {
-        const response = await fetch("https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-
-        const data = await response.json();
-        const botReply = data.message || "Ingen svar mottatt.";
-        log.innerHTML += `<div class="bot-msg"><b>Bot:</b> ${botReply}</div>`;
-        log.scrollTop = log.scrollHeight;
-      } catch (err) {
-        log.innerHTML += `<div class="bot-msg"><b>Bot:</b> Feil ved henting av svar.</div>`;
-      }
-    }
+    createChat({
+      webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat'
+    });
   </script>
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-	createChat({
-		webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat'
-	});
-</script>
 </body>
 </html>
