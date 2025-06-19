@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spør AI-Verten</title>
+
+  <!-- 1) n8n sin standard CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+    rel="stylesheet"
+  />
+
+  <!-- 2) Egne overstyringer, MÅ ligge *etter* standard‐CSS -->
+  <style>
+    /* a) Sidebakgrunn – lys grå slik at boksen skiller seg ut */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #f2f4f8;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    /* b) Selve containeren – 400×600 px, midt på skjermen */
+    #n8n-chat {
+      position: fixed !important;
+      top: 50%       !important;
+      left: 50%      !important;
+      transform: translate(-50%, -50%) !important;
+      width: 400px   !important;
+      height: 600px  !important;
+      border-radius: 1rem !important;
+      overflow: hidden      !important;
+      z-index: 10;
+    }
+
+    /* c) Pseudo‐element: Rød Airbnb-gradient + blur */
+    #n8n-chat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
+      filter: blur(10px)            !important;
+      transform: scale(1.1)         !important;
+      z-index: 0;
+    }
+
+    /* d) Pseudo‐element: Korn‐støy over gradienten */
+    #n8n-chat::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg") !important;
+      opacity: 0.15             !important;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* e) Skjul toggle-knapp (for sikkerhets skyld) */
+    .chat-toggle-button {
+      display: none !important;
+    }
+
+    /* f) Tving chat-vinduet til å fylle kun denne boksen */
+    #n8n-chat .chat-window {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      z-index: 2;
+    }
+
+    /* g) Gjør header/body/footer helt transparente og legg på tekst-farger */
+    #n8n-chat .chat-window,
+    #n8n-chat .chat-header,
+    #n8n-chat .chat-body,
+    #n8n-chat .chat-footer {
+      background: transparent !important;
+      box-shadow: none      !important;
+    }
+    /* header-tekst hvit for kontrast */
+    #n8n-chat .chat-header {
+      color: #fff !important;
+    }
+    /* lett hvit semi-transparent bakgrunn på input-feltet */
+    #n8n-chat .chat-input {
+      background: rgba(255,255,255,0.8) !important;
+    }
+
+    /* h) (valgfritt) juster bot/user farge‐variabler om ønskelig */
+    :root {
+      --chat--message--bot--background: rgba(255,255,255,0.9);
+      --chat--message--bot--color: #101330;
+      --chat--message--user--background: #20b69e;
+      --chat--message--user--color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Her havner chatten -->
+  <div id="n8n-chat"></div>
+
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+      webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
+      target: '#n8n-chat',
+      mode: 'fullscreen',
+      defaultLanguage: 'no',
+      showWelcomeScreen: false,
+      initialMessages: [
+        'Hei! Jeg er din digitale vert på Skyonvegen 27 – spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut-tider eller noe annet om oppholdet ditt 🙂'
+      ],
+      i18n: {
+        no: {
+          title: 'Spør AI-Verten',
+          subtitle: '',
+          inputPlaceholder: 'Skriv ditt spørsmål…',
+        }
+      }
+    });
+  </script>
+</body>
+</html>
 
