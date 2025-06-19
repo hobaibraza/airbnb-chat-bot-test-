@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     <style>
         :root {
-            /* Chatbot styling */
+            /* n8n Chat variabel overstyring */
             --chat--window--width: 420px;
             --chat--window--height: 650px;
             --chat--border-radius: 1.5rem;
@@ -19,12 +19,15 @@
             --chat--toggle--active--background: transparent;
             --chat--toggle--color: transparent;
             
-            /* Chat farger - tilpasset Airbnb tema */
+            /* Chat farger */
             --chat--color-primary: #FF385C;
             --chat--color-secondary: #00A699;
             --chat--header--background: #484848;
+            --chat--header--color: white;
             --chat--message--bot--background: #ffffff;
+            --chat--message--bot--color: #333333;
             --chat--message--user--background: #FF385C;
+            --chat--message--user--color: white;
         }
 
         * {
@@ -36,7 +39,6 @@
         html, body {
             height: 100%;
             width: 100%;
-            overflow: hidden;
             font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -51,15 +53,15 @@
             background-size: 20px 20px, 100% 100%;
             background-attachment: fixed;
             
-            /* Blur effect overlay */
-            position: relative;
+            /* Sentrering */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
         }
 
-        /* Extra blur overlay for more authentic look */
+        /* Extra blur overlay */
         body::before {
             content: '';
             position: fixed;
@@ -84,42 +86,32 @@
             z-index: 10;
             position: relative;
             
-            /* Glassmorphism effect */
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            
             /* Premium shadow */
             box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.3),
-                0 16px 32px rgba(0, 0, 0, 0.2),
-                0 8px 16px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 32px 64px rgba(0, 0, 0, 0.4),
+                0 16px 32px rgba(0, 0, 0, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         /* Skjul toggle knapp fullstendig */
         .n8n-chat-toggle,
-        n8n-chat-toggle {
+        n8n-chat-toggle,
+        [class*="toggle"] {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
         }
 
-        /* Responsive design */
+        /* Responsiv design */
         @media (max-width: 768px) {
             :root {
                 --chat--window--width: 95vw;
                 --chat--window--height: 85vh;
-                --chat--border-radius: 1.2rem;
             }
             
             body {
                 padding: 10px;
-            }
-            
-            #n8n-chat {
-                max-width: 400px;
             }
         }
 
@@ -127,20 +119,15 @@
             :root {
                 --chat--window--width: 100vw;
                 --chat--window--height: 100vh;
-                --chat--border-radius: 0rem;
+                --chat--border-radius: 0;
             }
             
             body {
                 padding: 0;
             }
-            
-            #n8n-chat {
-                border-radius: 0;
-                border: none;
-            }
         }
 
-        /* Subtle animation for loading */
+        /* Animation */
         #n8n-chat {
             animation: fadeInUp 0.8s ease-out;
         }
@@ -156,26 +143,7 @@
             }
         }
 
-        /* Custom scrollbar for better UX */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 56, 92, 0.5);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 56, 92, 0.7);
-        }
-
-        /* QR Code hint (optional) */
+        /* QR Code hint */
         .qr-hint {
             position: fixed;
             bottom: 20px;
@@ -188,18 +156,6 @@
             color: #484848;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             z-index: 15;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.05);
-                opacity: 1;
-            }
         }
 
         @media (max-width: 768px) {
@@ -215,3 +171,57 @@
 <body>
     <!-- Chatbot container -->
     <div id="n8n-chat"></div>
+    
+    <!-- Optional QR hint -->
+    <div class="qr-hint">
+        📱 Skannet fra QR-kode
+    </div>
+
+    <!-- n8n Chat Script - Riktig CDN -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            // Din webhook URL
+            webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
+            
+            // Konfiguration
+            mode: 'window',
+            target: '#n8n-chat',
+            showWelcomeScreen: true,
+            
+            // Session og input keys
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            
+            // Metadata
+            metadata: {
+                source: 'qr-code',
+                property: 'skyonvegen-27',
+                platform: 'airbnb'
+            },
+            
+            // Norsk språkstøtte
+            defaultLanguage: 'no',
+            
+            // Velkomstmeldinger
+            initialMessages: [
+                'Velkommen til ditt Airbnb-opphold! 🏠✨',
+                'Jeg er din digitale husvert og kan hjelpe deg med alt du trenger å vite om eiendommen.',
+                'Spør gjerne om husregler, WiFi-passord, utsjekking, lokale anbefalinger eller annet! 😊'
+            ],
+            
+            // Oversettelser
+            i18n: {
+                no: {
+                    title: 'Velkommen! 🏠',
+                    subtitle: 'Din digitale husvert er her for å hjelpe deg',
+                    inputPlaceholder: 'Spør om huset, området eller praktisk info...',
+                    getStarted: 'Start samtale',
+                    footer: '🔒 Sikker og privat chat'
+                }
+            }
+        });
+    </script>
+</body>
+</html>
