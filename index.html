@@ -34,6 +34,7 @@
       border-radius: 1rem !important;
       overflow: hidden      !important;
       z-index: 10;
+      background: none; /* gradient ligger i ::before */
     }
 
     /* c) Pseudo‐element: Rød Airbnb-gradient + blur */
@@ -63,37 +64,39 @@
       display: none !important;
     }
 
-    /* f) Tving chat-vinduet til å fylle kun denne boksen */
+    /* f) Plasser chat-vinduet helt i containeren, men gi det hvit bakgrunn */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
       width: 100% !important;
       height: 100% !important;
-      background: transparent !important;
+      background: #ffffff !important;
       border-radius: 0 !important;
       box-shadow: none !important;
       z-index: 2;
     }
 
-    /* g) Gjør header/body/footer helt transparente og legg på tekst-farger */
-    #n8n-chat .chat-window,
+    /* g) Header, body og footer på chatten får også hvit bakgrunn */
     #n8n-chat .chat-header,
     #n8n-chat .chat-body,
     #n8n-chat .chat-footer {
       background: transparent !important;
-      box-shadow: none      !important;
+      /* Dersom du vil at header/body/footer skal være HELT hvite (ingen gradient-kant), 
+         bytt ut transparent med #fff her */
     }
-    /* header-tekst hvit for kontrast */
+
+    /* header-tekst farge (mørk på hvit bakgrunn) */
     #n8n-chat .chat-header {
-      color: #fff !important;
+      color: #101330 !important;
     }
+
     /* lett hvit semi-transparent bakgrunn på input-feltet */
     #n8n-chat .chat-input {
       background: rgba(255,255,255,0.8) !important;
     }
 
-    /* h) (valgfritt) juster bot/user farge‐variabler om ønskelig */
+    /* h) (valgfritt) juster bot/user farge‐variabler */
     :root {
       --chat--message--bot--background: rgba(255,255,255,0.9);
       --chat--message--bot--color: #101330;
@@ -112,7 +115,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',
+      mode: 'fullscreen',          // fyller hele #n8n-chat-boksen
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
@@ -129,4 +132,3 @@
   </script>
 </body>
 </html>
-
