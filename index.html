@@ -5,33 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spør AI-Verten</title>
 
-  <!-- 1) Last inn n8n-chat sin egen CSS -->
+  <!-- 1) n8n sin CSS MÅ lastes før dine overstyringer -->
   <link
     href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
     rel="stylesheet"
   />
 
   <style>
-    /* 2) Hele siden får bakgrunn + korneffekt under boksen */
+    /* 2) Hele siden får nøytral bakgrunn */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden;
       font-family: sans-serif;
-      background: radial-gradient(rgba(255,90,95,0.9), rgba(255,56,61,0.8));
+      background: #f2f4f8;
       position: relative;
-    }
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.2;
-      pointer-events: none;
+      overflow: hidden;
     }
 
-    /* 3) Her definerer vi kun én liten container midt på skjermen */
+    /* 3) Den lille boksen midt på skjermen */
     #n8n-chat {
       position: fixed;
       top: 50%;
@@ -40,47 +32,55 @@
       width: 400px;
       height: 600px;
       border-radius: 1rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       overflow: hidden;
-      /* Rød Airbnb-gradient */
-      background: linear-gradient(135deg, #FF5A5F, #FF385D);
-      /* Lett blur “glass”-preg */
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      /* Sørger for at chat-window barna ligger over */
+      z-index: 10;
     }
-    /* 4) Ekstra korn‐overlay inne i boksen */
+
+    /* 4) Rød gradient + blur + korn‐støy som bakgrunn i boksen */
     #n8n-chat::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* Rød Airbnb‐gradient */
+      background: linear-gradient(135deg, #FF5A5F, #FF385D);
+      /* Blur gradienten */
+      filter: blur(10px);
+      /* Flytt gradienten litt bakover */
+      transform: scale(1.1);
+      z-index: 0;
+    }
+    #n8n-chat::after {
       content: "";
       position: absolute;
       inset: 0;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
       opacity: 0.15;
       pointer-events: none;
-      border-radius: inherit;
+      z-index: 1;
     }
 
-    /* 5) Skjul toggle‐knapp hvis den dukker opp */
+    /* 5) Skjul toggle‐knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* 6) Tving chat-window til å fylle nettopp denne containeren */
+    /* 6) Tving selve chat‐vinduet til å fylle #n8n-chat */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
-      width: 400% !important;
-      height: 600% !important;
+      width: 100% !important;
+      height: 100% !important;
       background: transparent !important;
       border-radius: 0 !important;
       box-shadow: none !important;
+      z-index: 2;
     }
 
-    /* 7) Tilpass farger & avrundinger i selve chatteruten */
+    /* 7) Tilpass farger inne i chat‐innholdet */
     :root {
-      --chat--window--width: 400%;
-      --chat--window--height: 600%;
-      --chat--border-radius: 0;               /* selve boksen har radius i #n8n-chat */
+      --chat--border-radius: 0;   /* selve boksen har radius i #n8n-chat */
       --chat--header--background: transparent;
       --chat--header--color: #fff;
 
@@ -105,7 +105,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',       // “fullscreen” betyr at chat-window fyller target-container
+      mode: 'fullscreen',      // chat-window fyller bare target-containter
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
