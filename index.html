@@ -2,42 +2,69 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Skyon Chatbot</title>
+
+  <!-- Chat-stil fra n8n -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+
   <style>
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+      overflow: hidden;
     }
 
+    /* Bakgrunnskorn */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Midtplassering for chatcontainer */
     #n8n-chat {
+      z-index: 2;
       width: 400px;
       height: 600px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
       overflow: hidden;
+    }
+
+    /* Skjul n8n-widget-knappen */
+    .n8n-chat-toggle {
+      display: none !important;
     }
   </style>
 </head>
 <body>
+  <!-- Her monteres chatten -->
   <div id="n8n-chat"></div>
 
+  <!-- Script fra n8n i IIFE-format -->
   <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.iife.js"></script>
   <script>
     window.createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-      mode: 'embedded',
       target: '#n8n-chat',
-      defaultLanguage: "no",
+      mode: 'embedded',
       showWelcomeScreen: false,
       initialMessages: [
-        "Hei! Jeg er din digitale vert her på Skyonvegen 27 🏡",
-        "Spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut eller noe annet!"
-      ]
+        "Hei! Jeg er din digitale vert her på Skyonvegen 27 👋",
+        "Spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut eller annet!"
+      ],
+      defaultLanguage: 'no'
     });
   </script>
 </body>
