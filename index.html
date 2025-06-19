@@ -2,22 +2,19 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spør AI-Verten</title>
+  <title>Skyon Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
   <style>
     body {
       margin: 0;
       height: 100vh;
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
     }
 
     body::before {
@@ -31,68 +28,40 @@
       z-index: 1;
     }
 
-    /* Flytt chatvinduet til midten */
-    .n8n-chat {
-      position: fixed !important;
-      top: 50% !important;
-      left: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      width: 400px !important;
-      height: 600px !important;
-      border-radius: 20px !important;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
-      z-index: 9999 !important;
-    }
-
-    /* ❌ Skjul chat-bobla helt */
-    .n8n-chat-toggle {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-      position: absolute !important;
-      top: -9999px;
-      left: -9999px;
+    #n8n-chat {
+      z-index: 2;
+      width: 400px;
+      height: 600px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
+  <div id="n8n-chat"></div>
 
-<script type="module">
-  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-  createChat({
-    webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
     createChat({
-	webhookUrl: '',
-	webhookConfig: {
-		method: 'POST',
-		headers: {}
-	},
-	target: '#n8n-chat',
-	mode: 'window',
-	chatInputKey: 'chatInput',
-	chatSessionKey: 'sessionId',
-	metadata: {},
-	showWelcomeScreen: false,
-	defaultLanguage: 'en',
-	initialMessages: [
-		'Hi there! 👋',
-		'My name is Nathan. How can I assist you today?'
-	],
-	i18n: {
-		en: {
-			title: 'Hi there! 👋',
-			subtitle: "Start a chat. We're here to help you 24/7.",
-			footer: '',
-			getStarted: 'New Conversation',
-			inputPlaceholder: 'Type your question..',
-		},
-	},
-});
-    open: true
-  });
-</script>
-
+      webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
+      mode: 'embedded',              // 👈 VIKTIG: viser direkte, ikke popup
+      target: '#n8n-chat',           // 👈 plasserer chatten i <div>
+      showWelcomeScreen: false,
+      initialMessages: [
+        "Hei! Jeg er din digitale vert her på Skyonvegen 27 😊",
+        "Spør meg om husregler, sjekk-inn/-ut, hvor ting ligger, eller hva som helst!"
+      ],
+      i18n: {
+        no: {
+          title: "Hei! 👋",
+          subtitle: "Hvordan kan jeg hjelpe deg?",
+          inputPlaceholder: "Skriv ditt spørsmål...",
+        }
+      },
+      defaultLanguage: "no"
+    });
+  </script>
 </body>
 </html>
