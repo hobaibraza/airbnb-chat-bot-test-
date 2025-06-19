@@ -13,6 +13,12 @@
 
   <!-- Egne overstyringer -->
   <style>
+    /* A) Rund hele widgeten og klipp alle hjørner */
+    #n8n-chat > div {
+      border-radius: 1rem !important;
+      overflow: hidden   !important;
+    }
+
     /* 1) Fullskjerm Airbnb-gradient + blur */
     html, body {
       margin: 0; padding: 0;
@@ -46,26 +52,22 @@
       height: 600px !important;
       z-index: 2;
       background: none;
-      /* <-- fjernet border-radius og overflow hidden her! */
     }
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* 3) Chat-vinduet: Rundet alle hjørner + kraftigere skygge + hvit bakgrunn */
+    /* B) .chat-window: hvit bakgrunn + skygge (wrapper tar seg av radius) */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important; left: 0 !important;
       width: 100% !important; height: 100% !important;
       background: #ffffff !important;
-      /* backdrop-filter: blur(4px) !important; */
-      border-radius: 1rem !important;      /* Rund alle hjørner her */
       box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3) !important;
-      overflow: hidden  !important;        /* Klipp innholdet ved hjørnene */
       z-index: 2;
     }
 
-    /* 4) Header: Gradient + hvit tekst + skillelinje */
+    /* 4) Header: Behold gradient + hvit tekst, skillelinje */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: #ffffff !important;
@@ -74,16 +76,11 @@
       padding-bottom: 0.75rem !important;
       font-weight: bold !important;
       border-bottom: 1px solid rgba(255,255,255,0.3) !important;
-      /* topprundingen sier .chat-window allerede, men du kan legge til: */
-      border-top-left-radius: 1rem  !important;
-      border-top-right-radius: 1rem !important;
     }
 
-    /* 5) Footer: Sikre avrundet bunn */
+    /* 5) Footer: hvit bakgrunn (nå blir bunnen rundet av wrapper) */
     #n8n-chat .chat-footer {
       background: #ffffff !important;
-      border-bottom-left-radius: 1rem  !important;
-      border-bottom-right-radius: 1rem !important;
     }
 
     /* 6) Body hvit + scrollbar‐styling */
