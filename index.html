@@ -5,19 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spør AI-Verten</title>
 
-  <!-- N8N chat-stil -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
     body {
       margin: 0;
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
-      font-family: 'Segoe UI', sans-serif;
       height: 100vh;
       overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Korn-effekt bakgrunn */
     body::before {
       content: "";
       position: absolute;
@@ -29,7 +27,6 @@
       z-index: 1;
     }
 
-    /* Plasser chat midt på skjermen */
     .n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -42,7 +39,6 @@
       z-index: 9999 !important;
     }
 
-    /* Skjul knapp nede i høyre hjørne */
     .n8n-chat-toggle {
       display: none !important;
     }
@@ -54,7 +50,8 @@
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
   createChat({
-    webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat'
+    webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
+    open: true // 👈 Viktig! Viser chatten med én gang
   });
 </script>
 
