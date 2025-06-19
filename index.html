@@ -5,15 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spør AI-Verten</title>
 
-  <!-- N8N chat widget styling -->
+  <!-- N8N chat-stil -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-</head>
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-    createChat({
-      webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat'
-    });
-  </script>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Korn-effekt bakgrunn */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Plasser chat midt på skjermen */
+    .n8n-chat {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 400px !important;
+      height: 600px !important;
+      border-radius: 20px !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+      z-index: 9999 !important;
+    }
+
+    /* Skjul knapp nede i høyre hjørne */
+    .n8n-chat-toggle {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+  createChat({
+    webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat'
+  });
+</script>
+
 </body>
 </html>
