@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skyon Chatbot</title>
 
-  <!-- n8n chat CSS -->
+  <!-- n8n Chat Styles -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
@@ -15,22 +15,18 @@
       --chat--color-white: #ffffff;
       --chat--color-light: #f2f4f8;
       --chat--color-dark: #101330;
-      --chat--message--font-size: 1rem;
       --chat--border-radius: 20px;
       --chat--window--width: 400px;
       --chat--window--height: 600px;
-      --chat--heading--font-size: 1.2rem;
-      --chat--subtitle--font-size: 0.9rem;
     }
 
     body {
       margin: 0;
-      padding: 0;
       height: 100vh;
-      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       display: flex;
       justify-content: center;
       align-items: center;
+      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       font-family: 'Segoe UI', sans-serif;
       position: relative;
       overflow: hidden;
@@ -50,23 +46,22 @@
       z-index: 2;
     }
 
-    /* Skjul sirkelknappen */
+    /* Fjern sirkelknappen */
     .n8n-chat-toggle {
       display: none !important;
     }
   </style>
 </head>
+
 <body>
-  <!-- Chat mount -->
   <div id="n8n-chat"></div>
 
-  <!-- n8n script -->
   <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.iife.js"></script>
   <script>
     window.createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'embedded',
+      mode: 'embedded', // viktig!
       showWelcomeScreen: false,
       defaultLanguage: 'no',
       initialMessages: [
