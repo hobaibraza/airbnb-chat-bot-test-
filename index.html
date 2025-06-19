@@ -13,7 +13,7 @@
 
   <!-- Egne overstyringer -->
   <style>
-    /* 1) Fjern default-sidebakgrunn */
+    /* Fullskjerm Airbnb-gradient + blur */
     html, body {
       margin: 0;
       padding: 0;
@@ -23,8 +23,6 @@
       position: relative;
       font-family: sans-serif;
     }
-
-    /* 2) Fullskjerm Airbnb-gradient + blur */
     body::before {
       content: "";
       position: fixed;
@@ -34,7 +32,6 @@
       transform: scale(1.05);
       z-index: 0;
     }
-    /* 3) Korn-støy over gradient */
     body::after {
       content: "";
       position: fixed;
@@ -45,7 +42,7 @@
       z-index: 1;
     }
 
-    /* 4) Chat-container midt på skjermen */
+    /* Plassering av chat-container */
     #n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -58,13 +55,11 @@
       z-index: 2;
       background: none;
     }
-
-    /* 5) Skjul toggle-knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* 6) Selve chat-vinduet: hvitt, med skygge */
+    /* Kraftigere skygge på selve vinduet */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important;
@@ -73,32 +68,31 @@
       height: 100% !important;
       background: #ffffff !important;
       border-radius: 1rem !important;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25) !important;
       z-index: 2;
       overflow: hidden !important;
     }
 
-    /* 7) Header med samme gradient som bakgrunn */
+    /* Header med gradient + helt hvit tekst */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
-      filter: blur(0)            !important; /* unngå ekstra blur */
-      color: white               !important;
-      padding-left: 1rem         !important;
-      font-weight: bold          !important;
+      color: #ffffff !important;
+      padding-left: 1rem !important;
+      font-weight: bold !important;
     }
 
-    /* 8) Body og footer hvite */
+    /* Body og footer hvite */
     #n8n-chat .chat-body,
     #n8n-chat .chat-footer {
       background: #ffffff !important;
     }
 
-    /* 9) Input-felt litt gjennomsiktig */
+    /* Input-felt */
     #n8n-chat .chat-input {
       background: rgba(255,255,255,0.8) !important;
     }
 
-    /* 10) Bot-/bruker-farger */
+    /* Bot-/bruker-farger */
     :root {
       --chat--message--bot--background: rgba(247,247,247,0.9);
       --chat--message--bot--color: #101330;
@@ -107,8 +101,8 @@
     }
   </style>
 </head>
-<body>
 
+<body>
   <div id="n8n-chat"></div>
 
   <script type="module">
