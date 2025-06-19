@@ -10,17 +10,23 @@
   <style>
     body {
       margin: 0;
-      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       height: 100vh;
-      overflow: hidden;
+      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     body::before {
       content: "";
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
       opacity: 0.2;
       pointer-events: none;
@@ -49,10 +55,16 @@
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-  createChat({
+  const chat = createChat({
     webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-    open: true // 👈 Viktig! Viser chatten med én gang
+    open: false // ikke stol på denne, vi tvinger åpning under
   });
+
+  // Tving å åpne etter noen millisekunder (når DOM er klar)
+  setTimeout(() => {
+    const toggleButton = document.querySelector('.n8n-chat-toggle');
+    if (toggleButton) toggleButton.click(); // simuler klikk
+  }, 500);
 </script>
 
 </body>
