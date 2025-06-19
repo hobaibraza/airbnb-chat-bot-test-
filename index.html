@@ -2,47 +2,40 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
+  <title>Skyon Chat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spør AI‑Verten</title>
-
-  <!-- N8N-oppsett -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
-    :root {
-      --chat--window--width: 400px;
-      --chat--window--height: 600px;
-      --chat--header--background: #ff5a5f;
-      --chat--header--color: white;
-      --chat--border-radius: 20px;
-      /* ... bruk gjerne flere av dine tilpassede varianter her */
-    }
-
-    html, body {
+    body {
       margin: 0;
       height: 100vh;
-      width: 100vw;
-      overflow: hidden;
+      background: radial-gradient(circle at center, rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
+      background-repeat: no-repeat;
+      background-size: cover;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: radial-gradient(rgba(255,90,95,0.9), rgba(255,56,61,0.8));
+      align-items: center;
+      overflow: hidden;
     }
 
-    /* Skjul toggle-knappen */
-    .n8n-chat-toggle {
-      display: none !important;
-    }
-
-    /* Plasser selve chat-boksen i midten */
     #n8n-chat {
+      width: 400px;
+      height: 600px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      z-index: 10;
       position: relative;
-      z-index: 2;
+    }
+
+    /* Fjern standard n8n-toggle-knapp */
+    n8n-chat-toggle {
+      display: none !important;
     }
   </style>
 </head>
 <body>
-  <!-- Her "mountes" chatten -->
+  <!-- Container for chat-widget -->
   <div id="n8n-chat"></div>
 
   <script type="module">
@@ -51,18 +44,19 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'inline',             // direkte innlasting – ikke vindu eller popup
-      showWelcomeScreen: true,    // eller false
-      initialMessages: [
-        'Hei! Jeg er din digitale vert på Skyonvegen 27 – spør gjerne om husregler, hvor ting ligger, sjekk-inn/ut-tider eller noe annet om oppholdet ditt 🙂'
-      ],
+      mode: 'window',
+      showWelcomeScreen: true,
       i18n: {
         no: {
-          title: 'Spør AI‑Verten',
-          subtitle: '',
-          inputPlaceholder: 'Skriv ditt spørsmål…'
-        }
-      }
+          title: 'Hi there! 👋',
+          subtitle: 'Start en prat. Vi hjelper deg når som helst.',
+          inputPlaceholder: 'Skriv spørsmålet ditt...',
+        },
+      },
+      defaultLanguage: 'no',
+      initialMessages: [
+        'Hei! Jeg er din digitale vert på Skyonvegen 27 – spør gjerne om husregler, hvor ting ligger, sjekk-inn/-ut-tider eller noe annet om oppholdet ditt 😊'
+      ],
     });
   </script>
 </body>
