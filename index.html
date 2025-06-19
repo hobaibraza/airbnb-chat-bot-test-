@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Spør AI-Verten</title>
 
-  <!-- 1) n8n sin standard CSS -->
+  <!-- n8n sin standard CSS -->
   <link
     href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
     rel="stylesheet"
   />
 
-  <!-- 2) Egne overstyringer, MÅ ligge *etter* standard‐CSS -->
+  <!-- Egne overstyringer -->
   <style>
-    /* a) Sidebakgrunn – lys grå slik at boksen skiller seg ut */
+    /* 1) Hel side */
     html, body {
       height: 100%;
       margin: 0;
@@ -23,48 +23,44 @@
       font-family: sans-serif;
     }
 
-    /* b) Selve containeren – 400×600 px, midt på skjermen */
+    /* 2) Container med gradient + blur */
     #n8n-chat {
       position: fixed !important;
-      top: 50%       !important;
-      left: 50%      !important;
+      top: 50% !important;
+      left: 50% !important;
       transform: translate(-50%, -50%) !important;
-      width: 400px   !important;
-      height: 600px  !important;
+      width: 400px !important;
+      height: 600px !important;
       border-radius: 1rem !important;
-      overflow: hidden      !important;
+      overflow: hidden !important;
       z-index: 10;
       background: none; /* gradient ligger i ::before */
     }
-
-    /* c) Pseudo‐element: Rød Airbnb-gradient + blur */
     #n8n-chat::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
-      filter: blur(10px)            !important;
-      transform: scale(1.1)         !important;
+      filter: blur(10px) !important;
+      transform: scale(1.1) !important;
       z-index: 0;
     }
-
-    /* d) Pseudo‐element: Korn‐støy over gradienten */
     #n8n-chat::after {
       content: "";
       position: absolute;
       inset: 0;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg") !important;
-      opacity: 0.15             !important;
+      opacity: 0.15 !important;
       pointer-events: none;
       z-index: 1;
     }
 
-    /* e) Skjul toggle-knapp (for sikkerhets skyld) */
+    /* 3) Skjul toggle-knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* f) Plasser chat-vinduet helt i containeren, men gi det hvit bakgrunn */
+    /* 4) Selve chat-vinduet: hvitt, avrundet hjørne */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important;
@@ -72,33 +68,32 @@
       width: 100% !important;
       height: 100% !important;
       background: #ffffff !important;
-      border-radius: 0 !important;
+      border-radius: 1rem !important;
       box-shadow: none !important;
       z-index: 2;
+      overflow: hidden !important;
     }
 
-    /* g) Header, body og footer på chatten får også hvit bakgrunn */
+    /* 5) Header, body og footer på hvit boks */
     #n8n-chat .chat-header,
     #n8n-chat .chat-body,
     #n8n-chat .chat-footer {
-      background: transparent !important;
-      /* Dersom du vil at header/body/footer skal være HELT hvite (ingen gradient-kant), 
-         bytt ut transparent med #fff her */
+      background: #ffffff !important;
     }
 
-    /* header-tekst farge (mørk på hvit bakgrunn) */
+    /* 6) Litt farge på header-tekst */
     #n8n-chat .chat-header {
       color: #101330 !important;
     }
 
-    /* lett hvit semi-transparent bakgrunn på input-feltet */
+    /* 7) Input-felt litt gjennomsiktig hvit */
     #n8n-chat .chat-input {
       background: rgba(255,255,255,0.8) !important;
     }
 
-    /* h) (valgfritt) juster bot/user farge‐variabler */
+    /* 8) Bruker- og bot-farger */
     :root {
-      --chat--message--bot--background: rgba(255,255,255,0.9);
+      --chat--message--bot--background: rgba(247,247,247,0.9);
       --chat--message--bot--color: #101330;
       --chat--message--user--background: #20b69e;
       --chat--message--user--color: #fff;
@@ -106,7 +101,6 @@
   </style>
 </head>
 <body>
-  <!-- Her havner chatten -->
   <div id="n8n-chat"></div>
 
   <script type="module">
@@ -115,7 +109,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',          // fyller hele #n8n-chat-boksen
+      mode: 'fullscreen',
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
