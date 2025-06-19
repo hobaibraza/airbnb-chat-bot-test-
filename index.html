@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spør AI-Verten</title>
 
+  <!-- N8N Chat CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
@@ -48,6 +49,10 @@
     .n8n-chat-toggle {
       display: none !important;
     }
+
+    .n8n-chat-closed {
+      display: flex !important;
+    }
   </style>
 </head>
 <body>
@@ -55,16 +60,11 @@
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-  const chat = createChat({
+  createChat({
     webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-    open: false // ikke stol på denne, vi tvinger åpning under
+    open: true,
+    hideToggleButton: true // ← denne sikrer at bobla ikke vises
   });
-
-  // Tving å åpne etter noen millisekunder (når DOM er klar)
-  setTimeout(() => {
-    const toggleButton = document.querySelector('.n8n-chat-toggle');
-    if (toggleButton) toggleButton.click(); // simuler klikk
-  }, 500);
 </script>
 
 </body>
