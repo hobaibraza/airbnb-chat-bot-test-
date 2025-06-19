@@ -50,10 +50,10 @@
 <body>
   <div id="n8n-chat"></div>
 
-  <script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-    createChat({
+  <!-- Laster inn n8n chat fra CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.iife.js"></script>
+  <script>
+    window.n8nChat.createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       mode: 'window',
       target: '#n8n-chat',
