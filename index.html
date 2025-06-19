@@ -6,23 +6,32 @@
   <title>Spør AI-Verten</title>
 
   <!-- N8N chat widget styling -->
-  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css"
+    rel="stylesheet"
+  />
 
   <style>
-    /* Fullscreen container som chatten skal fylle */
-    html, body, #n8n-chat {
+    /* 1) Sikre fullskjerm-container */
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
+    }
+
+    /* 2) Container for chatten */
+    #n8n-chat {
+      position: relative;   /* anker fixed-/absolute-barnet */
       width: 100%;
       height: 100%;
       overflow: hidden;
     }
 
-    /* Bakgrunn (Airbnb-rød + korneffekt) */
+    /* 3) Bakgrunn med korneffekt */
     body {
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
-      position: relative;
       font-family: sans-serif;
+      position: relative;
     }
     body::before {
       content: "";
@@ -33,22 +42,26 @@
       pointer-events: none;
     }
 
-    /* Overstyring av n8n-widget for å fjerne toggle-knappen */
+    /* 4) Fjern toggle-knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* Plasser chat-boksen sentralt */
+    /* 5) Plasser chat-boksen midt */
     #n8n-chat .chat-window {
-      position: absolute !important;
-      top: 50% !important;
-      left: 50% !important;
+      position: fixed !important;      /* alltid relativ til viewport */
+      top: 50%           !important;
+      left: 50%          !important;
       transform: translate(-50%, -50%) !important;
-      border-radius: 1rem !important;
+
+      width: var(--chat--window--width)   !important;
+      height: var(--chat--window--height) !important;
+
+      border-radius: 1rem   !important;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
     }
 
-    /* Tilpass farger, avrundinger etc via CSS-variabler */
+    /* 6) Farge-/stilasvariabler */
     :root {
       --chat--window--width: 400px;
       --chat--window--height: 600px;
@@ -61,13 +74,13 @@
       --chat--message--user--background: #20b69e;
       --chat--message--user--color: #fff;
 
-      --chat--toggle--size: 0;           /* ekstra guard mot toggle */
+      /* ekstra guard mot toggle */
+      --chat--toggle--size: 0;
       --chat--toggle--background: none;
     }
   </style>
 </head>
 <body>
-
   <!-- Dette elementet fylles av n8n-chat -->
   <div id="n8n-chat"></div>
 
@@ -77,7 +90,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',               // <<< viktig for å unngå toggle-knapp
+      mode: 'fullscreen',               // gjør at det ikke dukker opp toggle-knapp
       showWelcomeScreen: false,
       initialMessages: [
         'Hei! Jeg er din digitale vert på Skyonvegen 27 – spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut-tider eller noe annet om oppholdet ditt 🙂'
