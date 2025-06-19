@@ -2,23 +2,38 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skyon Chatbot</title>
 
-  <!-- Chat CSS -->
+  <!-- n8n chat CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
+    :root {
+      --chat--color-primary: #ff5a5f;
+      --chat--color-secondary: #20b69e;
+      --chat--color-white: #ffffff;
+      --chat--color-light: #f2f4f8;
+      --chat--color-dark: #101330;
+      --chat--message--font-size: 1rem;
+      --chat--border-radius: 20px;
+      --chat--window--width: 400px;
+      --chat--window--height: 600px;
+      --chat--heading--font-size: 1.2rem;
+      --chat--subtitle--font-size: 0.9rem;
+    }
+
     body {
       margin: 0;
+      padding: 0;
       height: 100vh;
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
     }
 
     body::before {
@@ -32,37 +47,39 @@
     }
 
     #n8n-chat {
-      width: 400px;
-      height: 600px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
       z-index: 2;
     }
 
-    /* Fjern standard boble-knapp */
+    /* Skjul sirkelknappen */
     .n8n-chat-toggle {
       display: none !important;
     }
   </style>
 </head>
 <body>
-  <!-- Chat-mount -->
+  <!-- Chat mount -->
   <div id="n8n-chat"></div>
 
-  <!-- Script fra n8n -->
+  <!-- n8n script -->
   <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.iife.js"></script>
   <script>
     window.createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'embedded', // Viktig for å unngå popup
+      mode: 'embedded',
       showWelcomeScreen: false,
+      defaultLanguage: 'no',
       initialMessages: [
         "Hei! Jeg er din digitale vert her på Skyonvegen 27 👋",
         "Spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut eller noe annet!"
       ],
-      defaultLanguage: 'no'
+      i18n: {
+        no: {
+          title: "Skyon AI-Vert",
+          subtitle: "Hvordan kan jeg hjelpe deg?",
+          inputPlaceholder: "Skriv ditt spørsmål her...",
+        }
+      }
     });
   </script>
 </body>
