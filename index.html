@@ -12,25 +12,15 @@
   />
 
   <style>
-    /* 1) Sikre fullskjerm-container */
+    /* 1) Fullskjerm for html/body */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
-    }
-
-    /* 2) Container for chatten */
-    #n8n-chat {
-      position: relative;   /* anker fixed-/absolute-barnet */
-      width: 100%;
-      height: 100%;
       overflow: hidden;
-    }
-
-    /* 3) Bakgrunn med korneffekt */
-    body {
-      background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       font-family: sans-serif;
+      /* Bakgrunn under chatboksen */
+      background: radial-gradient(rgba(255,90,95,0.9), rgba(255,56,61,0.8));
       position: relative;
     }
     body::before {
@@ -42,46 +32,73 @@
       pointer-events: none;
     }
 
-    /* 4) Fjern toggle-knapp */
+    /* 2) Container som fyller hele skjermen */
+    #n8n-chat {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 3) Fjern toggle-knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* 5) Plasser chat-boksen midt */
+    /* 4) Den lille rektangulære chatboksen */
     #n8n-chat .chat-window {
-      position: fixed !important;      /* alltid relativ til viewport */
-      top: 50%           !important;
-      left: 50%          !important;
+      position: fixed !important;
+      top: 50%   !important;
+      left: 50%  !important;
       transform: translate(-50%, -50%) !important;
 
-      width: var(--chat--window--width)   !important;
-      height: var(--chat--window--height) !important;
+      width: 360px   !important;
+      height: 550px  !important;
 
-      border-radius: 1rem   !important;
+      /* rød-gradient bakgrunn */
+      background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
+
+      /* lett blur for glass‐effekt */
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+
+      /* korn‐støy over gradienten */
+      overflow: hidden !important;
+      border-radius: 1rem !important;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
     }
+    /* støy‐overlay inni chat‐boksen */
+    #n8n-chat .chat-window::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.15;
+      pointer-events: none;
+      border-radius: inherit;
+    }
 
-    /* 6) Farge-/stilasvariabler */
+    /* 5) Juster CSS‐variabler til chat‐innholdet (meldinger o.l.) */
     :root {
-      --chat--window--width: 400px;
-      --chat--window--height: 600px;
+      --chat--window--width: 360px;
+      --chat--window--height: 550px;
 
       --chat--border-radius: 1rem;
-      --chat--header--background: #ff5a5f;
+      --chat--header--background: transparent;
       --chat--header--color: #fff;
 
-      --chat--message--bot--background: #ffffff;
+      --chat--message--bot--background: rgba(255,255,255,0.85);
+      --chat--message--bot--color: #101330;
+
       --chat--message--user--background: #20b69e;
       --chat--message--user--color: #fff;
 
-      /* ekstra guard mot toggle */
-      --chat--toggle--size: 0;
-      --chat--toggle--background: none;
+      --chat--textarea--background: rgba(255,255,255,0.8);
+      --chat--textarea--color: #101330;
     }
   </style>
 </head>
 <body>
-  <!-- Dette elementet fylles av n8n-chat -->
+  <!-- Her rendres chat‐widgeten -->
   <div id="n8n-chat"></div>
 
   <script type="module">
@@ -90,7 +107,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',               // gjør at det ikke dukker opp toggle-knapp
+      mode: 'fullscreen',        // gjør at toggle‐knapp ikke vises
       showWelcomeScreen: false,
       initialMessages: [
         'Hei! Jeg er din digitale vert på Skyonvegen 27 – spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut-tider eller noe annet om oppholdet ditt 🙂'
