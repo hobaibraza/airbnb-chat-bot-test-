@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spør AI-Verten</title>
 
-  <!-- N8N Chat CSS -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
@@ -24,16 +23,15 @@
     body::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
       opacity: 0.2;
       pointer-events: none;
       z-index: 1;
     }
 
+    /* Flytt chatvinduet til midten */
     .n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -46,12 +44,15 @@
       z-index: 9999 !important;
     }
 
+    /* ❌ Skjul chat-bobla helt */
     .n8n-chat-toggle {
       display: none !important;
-    }
-
-    .n8n-chat-closed {
-      display: flex !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      top: -9999px;
+      left: -9999px;
     }
   </style>
 </head>
@@ -62,8 +63,7 @@
 
   createChat({
     webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
-    open: true,
-    hideToggleButton: true // ← denne sikrer at bobla ikke vises
+    open: true
   });
 </script>
 
