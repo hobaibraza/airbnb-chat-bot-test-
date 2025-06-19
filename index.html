@@ -13,17 +13,40 @@
 
   <!-- Egne overstyringer -->
   <style>
-    /* 1) Hel side */
+    /* 1) Fjern side-bakgrunn (vi lager vår egen under) */
     html, body {
-      height: 100%;
       margin: 0;
       padding: 0;
-      background: #f2f4f8;
+      height: 100%;
       overflow: hidden;
+      background: none;
+      position: relative;
       font-family: sans-serif;
     }
 
-    /* 2) Container med gradient + blur */
+    /* 2) Fullskjerm pseudo-element: rød Airbnb-gradient + blur */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #FF5A5F, #FF385D);
+      filter: blur(10px);
+      transform: scale(1.05);
+      z-index: 0;
+    }
+
+    /* 3) Fullskjerm pseudo-element: korn-støy */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 4) Container for chatten, midt på skjermen */
     #n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -33,34 +56,16 @@
       height: 600px !important;
       border-radius: 1rem !important;
       overflow: hidden !important;
-      z-index: 10;
-      background: none; /* gradient ligger i ::before */
-    }
-    #n8n-chat::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
-      filter: blur(10px) !important;
-      transform: scale(1.1) !important;
-      z-index: 0;
-    }
-    #n8n-chat::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://grainy-gradients.vercel.app/noise.svg") !important;
-      opacity: 0.15 !important;
-      pointer-events: none;
-      z-index: 1;
+      z-index: 2;           /* over bakgrunnen */
+      background: none;     /* gradient ligger i body::before */
     }
 
-    /* 3) Skjul toggle-knapp */
+    /* 5) Fjern toggle-knapp */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* 4) Selve chat-vinduet: hvitt, avrundet hjørne */
+    /* 6) Gjør selve chat-vinduet hvitt */
     #n8n-chat .chat-window {
       position: absolute !important;
       top: 0 !important;
@@ -70,28 +75,26 @@
       background: #ffffff !important;
       border-radius: 1rem !important;
       box-shadow: none !important;
-      z-index: 2;
+      z-index: 3;
       overflow: hidden !important;
     }
 
-    /* 5) Header, body og footer på hvit boks */
+    /* 7) Header, body og footer hvite */
     #n8n-chat .chat-header,
     #n8n-chat .chat-body,
     #n8n-chat .chat-footer {
       background: #ffffff !important;
     }
 
-    /* 6) Litt farge på header-tekst */
+    /* 8) Tekst- og input-justering */
     #n8n-chat .chat-header {
       color: #101330 !important;
     }
-
-    /* 7) Input-felt litt gjennomsiktig hvit */
     #n8n-chat .chat-input {
       background: rgba(255,255,255,0.8) !important;
     }
 
-    /* 8) Bruker- og bot-farger */
+    /* 9) Bot-/bruker-farger */
     :root {
       --chat--message--bot--background: rgba(247,247,247,0.9);
       --chat--message--bot--color: #101330;
@@ -101,6 +104,8 @@
   </style>
 </head>
 <body>
+
+  <!-- Her rendres chatten -->
   <div id="n8n-chat"></div>
 
   <script type="module">
