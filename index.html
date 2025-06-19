@@ -4,38 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Skyon Chatbot</title>
-
-  <!-- n8n Chat Styles -->
   <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 
   <style>
-    :root {
-      --chat--color-primary: #ff5a5f;
-      --chat--color-secondary: #20b69e;
-      --chat--color-white: #ffffff;
-      --chat--color-light: #f2f4f8;
-      --chat--color-dark: #101330;
-      --chat--border-radius: 20px;
-      --chat--window--width: 400px;
-      --chat--window--height: 600px;
-    }
-
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: radial-gradient(rgba(255, 90, 95, 0.9), rgba(255, 56, 61, 0.8));
       font-family: 'Segoe UI', sans-serif;
-      position: relative;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     body::before {
       content: "";
       position: absolute;
-      inset: 0;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
       opacity: 0.2;
       pointer-events: none;
@@ -46,7 +32,6 @@
       z-index: 2;
     }
 
-    /* Fjern sirkelknappen */
     .n8n-chat-toggle {
       display: none !important;
     }
@@ -61,12 +46,12 @@
     window.createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'embedded', // viktig!
+      mode: 'embedded',
       showWelcomeScreen: false,
       defaultLanguage: 'no',
       initialMessages: [
-        "Hei! Jeg er din digitale vert her på Skyonvegen 27 👋",
-        "Spør meg gjerne om husregler, hvor ting ligger, sjekk-inn/-ut eller noe annet!"
+        "Hei! Jeg er din digitale vert på Skyonvegen 27 👋",
+        "Spør meg gjerne om husregler, sjekk-inn/-ut eller hvor ting ligger."
       ],
       i18n: {
         no: {
