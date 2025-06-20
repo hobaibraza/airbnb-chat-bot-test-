@@ -74,6 +74,12 @@
       visibility: hidden !important;
       pointer-events: none !important;
     }
+    /* 7) Fix horisontal scroll på textarea */
+#n8n-chat textarea.chat-textarea {
+  box-sizing: border-box !important;  /* inkluderer padding i bredden */
+  width: 100%           !important; 
+  overflow-x: hidden    !important;  /* fjern horisontal scroll */
+}
   </style>
 </head>
 
