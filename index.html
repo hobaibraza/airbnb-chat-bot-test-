@@ -38,31 +38,27 @@
       z-index: -1;
     }
 
-    /* Hovedcontainer */
+    /* Hovedcontainer - sentrert rektangel */
     #n8n-chat {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 95%;
-      max-width: 500px;
-      height: 85%;
-      max-height: 700px;
+      width: 400px;
+      height: 600px;
       z-index: 1000;
     }
 
-    /* Chat-vindu */
+    /* Chat-vindu - behold original design */
     #n8n-chat .chat-window {
-      display: flex;
-      flex-direction: column;
+      width: 100%;
       height: 100%;
-      background: white;
       border-radius: 16px;
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
       overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
     }
 
-    /* Header */
+    /* Header med gradient */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: white !important;
@@ -70,128 +66,22 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
 
-    /* Meldingsområde */
-    #n8n-chat .chat-body {
-      flex: 1;
-      padding: 16px;
-      overflow-y: auto;
-    }
-
-    /* Meldinger */
-    #n8n-chat .chat-message {
-      max-width: 80%;
-      margin-bottom: 12px;
-    }
-
-    /* Bobleutseende */
-    #n8n-chat .message-content {
-      padding: 12px 16px !important;
-      border-radius: 18px !important;
-      line-height: 1.5;
-    }
-
-    /* Bot-meldinger */
-    #n8n-chat .chat-message--bot .message-content {
-      background: #f7f7f7;
-      color: #333;
-      border-radius: 18px 18px 18px 4px !important;
-    }
-
-    /* Brukermeldinger */
-    #n8n-chat .chat-message--user .message-content {
-      background: #FF5A5F;
-      color: white;
-      border-radius: 18px 18px 4px 18px !important;
-    }
-
-    /* Footer med input-felt */
-    #n8n-chat .chat-footer {
-      padding: 16px;
-      background: white;
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    /* Input-wrapper */
-    #n8n-chat .chat-input-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      position: relative;
-    }
-
-    /* Input-felt - viktig fiks for PC */
-    #n8n-chat .chat-input {
-      flex: 1;
-      min-height: 56px;
-      padding: 12px 52px 12px 16px !important;
-      border: 1px solid rgba(0, 0, 0, 0.1) !important;
-      border-radius: 28px !important;
-      background: white !important;
-      font-size: 16px;
-      line-height: 1.5;
-      resize: none;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s;
-    }
-
-    #n8n-chat .chat-input:focus {
-      outline: none;
-      border-color: #FF5A5F !important;
-      box-shadow: 0 0 0 2px rgba(255, 90, 95, 0.2);
-    }
-
-    /* Sendeknapp - fiks for PC */
-    #n8n-chat .chat-send-button {
-      position: absolute !important;
-      right: 12px;
-      bottom: 12px;
-      width: 36px !important;
-      height: 36px !important;
-      background: #FF5A5F !important;
-      color: white !important;
-      border: none !important;
-      border-radius: 50% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      cursor: pointer !important;
-      transition: background 0.2s !important;
-    }
-
-    #n8n-chat .chat-send-button:hover {
-      background: #E74266 !important;
-    }
-
-    /* Fjern toggle-knapp helt */
+    /* Skjul toggle-knapp HELT - dette er hovedendringen */
     .chat-toggle-button {
       display: none !important;
     }
 
-    /* Media query for PC */
-    @media (min-width: 768px) {
-      #n8n-chat {
-        max-width: 450px;
-      }
-      
-      #n8n-chat .chat-input {
-        min-height: 60px;
-        font-size: 16px;
-      }
-      
-      #n8n-chat .chat-send-button {
-        width: 40px !important;
-        height: 40px !important;
-      }
+    /* Input-felt - pass inn i rektangelen */
+    #n8n-chat .chat-input {
+      border-radius: 20px !important;
+      margin: 0 16px 16px 16px !important;
+      width: calc(100% - 32px) !important;
     }
 
-    /* Scrollbar */
-    #n8n-chat .chat-body::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    #n8n-chat .chat-body::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 3px;
+    /* Sendeknapp - inne i input-feltet */
+    #n8n-chat .chat-send-button {
+      right: 24px !important;
+      bottom: 24px !important;
     }
   </style>
 </head>
@@ -205,7 +95,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'window',
+      mode: 'window', // Viktig: bruk window-modus
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
