@@ -115,12 +115,13 @@
     }
 
     /* 9) Bot-/bruker-farger */
-    :root {
-      --chat--message--bot--background: rgba(247,247,247,0.9);
-      --chat--message--bot--color: #101330;
-      --chat--message--user--background: #20b69e;
-      --chat--message--user--color: #fff;
-    }
+:root {
+  --chat--message--bot--background: rgba(247,247,247,0.9);
+  --chat--message--bot--color: #101330;
+  /* Endret fra grønn til flat rød: */
+  --chat--message--user--background: #FF5A5F;
+  --chat--message--user--color: #fff;
+}
 
     /* 10) Runde hjørner på alle meldings-bobler */
     #n8n-chat .chat-message .message-content {
@@ -128,9 +129,10 @@
     }
 
     /* 11) Gjøre bruker-boblene røde/gradient som headeren */
-#n8n-chat .chat-message.user .message-content {
+#n8n-chat .chat-message.chat-message--user .message-content {
   background-color: #FF5A5F !important;
   color: #ffffff !important;
+  border-radius: 1rem !important;
 }
   </style>
 </head>
