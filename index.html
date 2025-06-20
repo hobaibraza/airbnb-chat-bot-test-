@@ -52,7 +52,17 @@
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: #ffffff !important;
     }
-
+    
+/* 5) Fiks skrivefeltet: overstyr <textarea> */
+#n8n-chat .chat-input textarea {
+  width: 100% !important;
+  height: var(--chat--textarea--height) !important;
+  padding: var(--chat--spacing) !important;
+  border: none !important;
+  border-radius: 1rem !important;
+  background: rgba(255,255,255,0.8) !important;
+  resize: none !important; /* valgfritt: slå av resizing-hjørne */
+}
     /* NYTT: Runde hjørner på alle meldings-bobler */
     #n8n-chat .chat-message .message-content {
       border-radius: 1rem !important;
