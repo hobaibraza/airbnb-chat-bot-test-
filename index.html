@@ -85,22 +85,23 @@
   width: 100%           !important;
   overflow-x: hidden    !important;
 }
-/* A) Gjør foteren til flex og sentrer vertikalt */
+/* === Ny flex‐layout for footer: input + send‐knapp på en linje === */
 #n8n-chat .chat-footer {
-  display: flex !important;
-  align-items: center !important;
+  display: flex          !important;
+  align-items: center    !important; /* midtstiller vertikalt */
+  padding: var(--chat--spacing) !important;
 }
 
-/* B) Gi inputfeltet lov til å ta all gjenværende plass */
 #n8n-chat .chat-footer .chat-input {
-  flex: 1 1 auto !important;
-  margin: 0 !important;
+  flex: 1 1 auto         !important; /* tar all ledig horisontal plass */
+  margin: 0              !important; /* fjern evt default-margin */
 }
 
-/* C) Skyv sendeknappen ut til høyre */
 #n8n-chat .chat-footer .chat-send-button {
-  margin-left: var(--chat--spacing) !important;
+  flex: 0 0 auto         !important; /* fast bredde for knappen */
+  margin-left: var(--chat--spacing) !important; /* avstand til input */
 }
+
   </style>
 </head>
 
