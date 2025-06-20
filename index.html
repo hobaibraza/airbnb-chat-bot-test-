@@ -85,27 +85,23 @@
   width: 100%           !important;
   overflow-x: hidden    !important;
 }
-/* Gjør skrivefelt + knapp til flex-boksen */
-#n8n-chat .chat-input {
+/* === Ny flex‐layout for footer: input + send‐knapp på en linje === */
+#n8n-chat .chat-footer {
   display: flex          !important;
-  align-items: center    !important;  /* vertikalt sentrert */
-  padding: 0!important;             /* la textareaʼens padding styre høyden */
-  margin: 0!important;
+  align-items: center    !important; /* midtstiller vertikalt */
+  padding: var(--chat--spacing) !important;
 }
 
-/* La textarea fylle bredden */
-#n8n-chat .chat-input textarea {
-  flex: 1 1 auto         !important;
-  margin: 0              !important;
-  padding-right: 1rem    !important; /* litt luft til knappen */
-  min-width: 0           !important; /* nødvendig i flex-kontekst */
+#n8n-chat .chat-footer .chat-input {
+  flex: 1 1 auto         !important; /* tar all ledig horisontal plass */
+  margin: 0              !important; /* fjern evt default-margin */
 }
 
-/* Skyv pil-knappen ut til høyre */
-#n8n-chat .chat-input button.chat-send-button {
-  flex: 0 0 auto         !important;
-  margin-left: var(--chat--spacing) !important;
+#n8n-chat .chat-footer .chat-send-button {
+  flex: 0 0 auto         !important; /* fast bredde for knappen */
+  margin-left: var(--chat--spacing) !important; /* avstand til input */
 }
+
   </style>
 </head>
 
@@ -134,4 +130,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
