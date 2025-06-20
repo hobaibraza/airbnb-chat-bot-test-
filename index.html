@@ -47,6 +47,17 @@
       box-shadow: 0 12px 48px rgba(0,0,0,0.3) !important;
     }
 
+    /* NYTT: Header får samme røde gradient som bakgrunn */
+    #n8n-chat .chat-header {
+      background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
+      color: #ffffff !important;
+    }
+
+    /* NYTT: Runde hjørner på alle meldings-bobler */
+    #n8n-chat .chat-message .message-content {
+      border-radius: 1rem !important;
+    }
+
     /* 4) Skjul toggle-knappen fullstendig */
     button.chat-toggle-button {
       display: none !important;
@@ -65,7 +76,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'fullscreen',      // <-- bytt til fullscreen så chat-vinduet er åpent med én gang
+      mode: 'fullscreen',
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
