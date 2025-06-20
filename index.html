@@ -85,24 +85,22 @@
   width: 100%           !important;
   overflow-x: hidden    !important;
 }
-    /* Gjør chat-footer relative slik at vi kan absoluttposisjonere sendeknappen */
+/* A) Gjør foteren til flex og sentrer vertikalt */
 #n8n-chat .chat-footer {
-  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
-/* Flytt sendeknapp inn i høyre kant, vertikalt sentrert */
-#n8n-chat .chat-send-button {
-  position: absolute !important;
-  top: 50%               !important;
-  right: var(--chat--spacing) !important;
-  transform: translateY(-50%) !important;
+/* B) Gi inputfeltet lov til å ta all gjenværende plass */
+#n8n-chat .chat-footer .chat-input {
+  flex: 1 1 auto !important;
+  margin: 0 !important;
 }
 
-/* Gi textarea ekstra høyrepadding så teksten ikke forsvinner under knappen */
-#n8n-chat .chat-input textarea {
-  padding-right: calc(var(--chat--textarea--height) + var(--chat--spacing)) !important;
+/* C) Skyv sendeknappen ut til høyre */
+#n8n-chat .chat-footer .chat-send-button {
+  margin-left: var(--chat--spacing) !important;
 }
-
   </style>
 </head>
 
