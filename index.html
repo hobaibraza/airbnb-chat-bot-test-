@@ -10,81 +10,48 @@
 
   <!-- Egne overstyringer -->
   <style>
-    /* Grunnleggende reset */
+    /* 1) Helside rød gradient + blur + korn */
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0; padding: 0; height: 100%; overflow: hidden;
     }
-
-    /* Bakgrunnseffekter */
     body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+      content:""; position:fixed; inset:0;
       background: linear-gradient(135deg, #FF5A5F, #FF385D);
       filter: blur(10px);
+      transform: scale(1.05);
       z-index: -2;
     }
-    
     body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
+      content:""; position:fixed; inset:0;
       background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-      opacity: 0.15;
-      pointer-events: none;
+      opacity: 0.15; pointer-events:none;
       z-index: -1;
     }
 
-    /* Hovedcontainer - sentrert rektangel */
+    /* 2) Container midt på siden som “vindu” */
     #n8n-chat {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      height: 600px;
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 400px !important;
+      height: 600px !important;
+      background: none!important;
       z-index: 1000;
     }
 
-    /* Chat-vindu - behold original design */
-    #n8n-chat .chat-window {
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    /* 3) Selve chat-vinduet */
+    #n8n-chat > div {
+      border-radius: 1rem !important;
+      overflow: hidden !important;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.3) !important;
     }
 
-    /* Header med gradient */
-    #n8n-chat .chat-header {
-      background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
-      color: white !important;
-      padding: 16px 20px !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-    }
-
-    /* Skjul toggle-knapp HELT - dette er hovedendringen */
-button.chat-toggle-button {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-    /* Input-felt - pass inn i rektangelen */
-    #n8n-chat .chat-input {
-      border-radius: 20px !important;
-      margin: 0 16px 16px 16px !important;
-      width: calc(100% - 32px) !important;
-    }
-
-    /* Sendeknapp - inne i input-feltet */
-    #n8n-chat .chat-send-button {
-      right: 24px !important;
-      bottom: 24px !important;
+    /* 4) Skjul toggle-knappen fullstendig */
+    button.chat-toggle-button {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
     }
   </style>
 </head>
@@ -98,7 +65,7 @@ button.chat-toggle-button {
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'window', // Viktig: bruk window-modus
+      mode: 'fullscreen',      // <-- bytt til fullscreen så chat-vinduet er åpent med én gang
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
@@ -109,14 +76,8 @@ button.chat-toggle-button {
           title: 'Spør AI-Verten',
           subtitle: '',
           inputPlaceholder: 'Skriv ditt spørsmål her...',
-          getStarted: 'Ny samtale'
         }
       },
-      loadPreviousSession: true,
-      windowConfig: {
-        width: '100%',
-        height: '100%'
-      }
     });
   </script>
 </body>
