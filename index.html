@@ -38,20 +38,20 @@
       z-index: -1;
     }
 
-    /* Hovedcontainer - bruker n8n sine standarder med våre tilpasninger */
+    /* Hovedcontainer */
     #n8n-chat {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 450px;
-      height: 80%;
+      width: 95%;
+      max-width: 500px;
+      height: 85%;
       max-height: 700px;
       z-index: 1000;
     }
 
-    /* Chat-vindu - tilpasset utseende */
+    /* Chat-vindu */
     #n8n-chat .chat-window {
       display: flex;
       flex-direction: column;
@@ -62,7 +62,7 @@
       overflow: hidden;
     }
 
-    /* Header - behold gradienten din */
+    /* Header */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: white !important;
@@ -70,22 +70,16 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
 
-    /* Meldingsområde - fiks breddeproblemet */
+    /* Meldingsområde */
     #n8n-chat .chat-body {
       flex: 1;
       padding: 16px;
       overflow-y: auto;
     }
 
-    /* Standardiser meldingsbredde */
-    #n8n-chat .chat-messages {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    /* Meldinger - bedre luft og bredde */
+    /* Meldinger */
     #n8n-chat .chat-message {
-      max-width: 85%;
+      max-width: 80%;
       margin-bottom: 12px;
     }
 
@@ -110,14 +104,14 @@
       border-radius: 18px 18px 4px 18px !important;
     }
 
-    /* Footer med input-felt - viktig fiks */
+    /* Footer med input-felt */
     #n8n-chat .chat-footer {
       padding: 16px;
       background: white;
       border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    /* Input-wrapper for riktig plassering */
+    /* Input-wrapper */
     #n8n-chat .chat-input-wrapper {
       display: flex;
       align-items: center;
@@ -125,7 +119,7 @@
       position: relative;
     }
 
-    /* Input-felt - viktig fiks */
+    /* Input-felt - viktig fiks for PC */
     #n8n-chat .chat-input {
       flex: 1;
       min-height: 56px;
@@ -146,7 +140,7 @@
       box-shadow: 0 0 0 2px rgba(255, 90, 95, 0.2);
     }
 
-    /* Sendeknapp - bedre plassering */
+    /* Sendeknapp - fiks for PC */
     #n8n-chat .chat-send-button {
       position: absolute !important;
       right: 12px;
@@ -168,9 +162,26 @@
       background: #E74266 !important;
     }
 
-    /* Skjul toggle-knapp */
+    /* Fjern toggle-knapp helt */
     .chat-toggle-button {
       display: none !important;
+    }
+
+    /* Media query for PC */
+    @media (min-width: 768px) {
+      #n8n-chat {
+        max-width: 450px;
+      }
+      
+      #n8n-chat .chat-input {
+        min-height: 60px;
+        font-size: 16px;
+      }
+      
+      #n8n-chat .chat-send-button {
+        width: 40px !important;
+        height: 40px !important;
+      }
     }
 
     /* Scrollbar */
@@ -194,7 +205,7 @@
     createChat({
       webhookUrl: 'https://skyon.app.n8n.cloud/webhook/f406671e-c954-4691-b39a-66c90aa2f103/chat',
       target: '#n8n-chat',
-      mode: 'window', // Bruker window-modus for bedre kontroll
+      mode: 'window',
       defaultLanguage: 'no',
       showWelcomeScreen: false,
       initialMessages: [
