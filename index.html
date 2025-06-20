@@ -67,8 +67,11 @@
     }
 
     /* Skjul toggle-knapp HELT - dette er hovedendringen */
-.chat-toggle-button:hover {
-    display: none !important;
+button.chat-toggle-button {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
     /* Input-felt - pass inn i rektangelen */
