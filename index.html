@@ -28,7 +28,7 @@
       z-index: -1;
     }
 
-    /* 2) Container midt på siden som “vindu” */
+    /* 2) Container midt på siden som "vindu" */
     #n8n-chat {
       position: fixed !important;
       top: 50% !important;
@@ -47,61 +47,78 @@
       box-shadow: 0 12px 48px rgba(0,0,0,0.3) !important;
     }
 
-    /* NYTT: Header får samme røde gradient som bakgrunn */
+    /* Header med gradient */
     #n8n-chat .chat-header {
       background: linear-gradient(135deg, #FF5A5F, #FF385D) !important;
       color: #ffffff !important;
     }
     
-/* 5) Fiks skrivefeltet: overstyr <textarea> */
-#n8n-chat .chat-input textarea {
-  width: 100% !important;
-  height: var(--chat--textarea--height) !important;
-  padding: var(--chat--spacing) !important;
-  border: none !important;
-  border-radius: 1rem !important;
-  background: rgba(255,255,255,0.8) !important;
-  resize: none !important; /* valgfritt: slå av resizing-hjørne */
-}
-    /* NYTT: Runde hjørner på alle meldings-bobler */
+    /* Runde hjørner på alle meldings-bobler */
     #n8n-chat .chat-message .message-content {
       border-radius: 1rem !important;
     }
 
-    /* 4) Skjul toggle-knappen fullstendig */
+    /* Skjul toggle-knappen */
     button.chat-toggle-button {
       display: none !important;
       visibility: hidden !important;
       pointer-events: none !important;
     }
-    /* 7) Fix horisontal scroll på textarea */
-#n8n-chat textarea.chat-textarea {
-  box-sizing: border-box !important;  /* inkluderer padding i bredden */
-  width: 100%           !important; 
-  overflow-x: hidden    !important;  /* fjern horisontal scroll */
-}
+
+    /* Skriveområde - behold din eksisterende stil */
     #n8n-chat .chat-input textarea {
-  box-sizing: border-box !important;  /* inkluderer padding i bredden */
-  width: 100%           !important;
-  overflow-x: hidden    !important;
-}
-/* === Ny flex‐layout for footer: input + send‐knapp på en linje === */
-#n8n-chat .chat-footer {
-  display: flex          !important;
-  align-items: center    !important; /* midtstiller vertikalt */
-  padding: var(--chat--spacing) !important;
-}
+      width: 100% !important;
+      height: var(--chat--textarea--height) !important;
+      padding: var(--chat--spacing) !important;
+      border: none !important;
+      border-radius: 1rem !important;
+      background: rgba(255,255,255,0.8) !important;
+      resize: none !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
 
-#n8n-chat .chat-footer .chat-input {
-  flex: 1 1 auto         !important; /* tar all ledig horisontal plass */
-  margin: 0              !important; /* fjern evt default-margin */
-}
+    /* NYTT: Justering for sendeknappens posisjon (høyre side) */
+    #n8n-chat .chat-input-container {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      position: relative !important;
+      padding-right: 50px !important; /* Plass til knappen */
+    }
 
-#n8n-chat .chat-footer .chat-send-button {
-  flex: 0 0 auto         !important; /* fast bredde for knappen */
-  margin-left: var(--chat--spacing) !important; /* avstand til input */
-}
+    #n8n-chat .chat-input {
+      flex: 1 !important;
+      padding-right: 2.5rem !important; /* Mer plass til knappen */
+    }
 
+    #n8n-chat .chat-send-button {
+      position: absolute !important;
+      right: 12px !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      background: #FF5A5F !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 50% !important;
+      width: 36px !important;
+      height: 36px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: background 0.2s !important;
+    }
+
+    #n8n-chat .chat-send-button:hover {
+      background: #E53935 !important;
+    }
+
+    /* Footer styling */
+    #n8n-chat .chat-footer {
+      padding: 0.75rem 1rem !important;
+      background: white !important;
+    }
   </style>
 </head>
 
@@ -130,4 +147,4 @@
     });
   </script>
 </body>
-</html> 
+</html>
